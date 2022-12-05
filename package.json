@@ -1,0 +1,39 @@
+{
+  "name": "bots-constructor",
+  "version": "1.0.0",
+  "description": "Service for construction simple bots",
+  "main": "./api/api.js",
+  "scripts": {
+    "start": "npm run dev",
+    "prod": "npm run produp && node ./api/api.js",
+    "produp": "",
+    "proddown": "",
+    "dev": "npm run devup && nodemon ./api/api.js",
+    "devup": "",
+    "devdown": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KonstantinovEgor/bots-constructor.git"
+  },
+  "author": "Miracle Sw1n",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KonstantinovEgor/bots-constructor/issues"
+  },
+  "homepage": "https://github.com/KonstantinovEgor/bots-constructor#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "chalk": "^4.1.2",
+    "core-js": "^2.6.9",
+    "cross-env": "^7.0.3",
+    "db-migrate": "^0.11.13",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "express-routes-mapper": "^1.1.0",
+    "node-telegram-bot-api": "^0.60.0",
+    "nodemon": "^2.0.20",
+    "pg": "^8.8.0",
+    "sequelize": "^6.21.4"
+  }
+}
