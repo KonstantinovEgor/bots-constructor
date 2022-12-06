@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const TelegramBot = require('node-telegram-bot-api');
 const mapRoutes = require('express-routes-mapper');
 
 const config = require('../config/');

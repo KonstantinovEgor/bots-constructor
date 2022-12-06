@@ -1,6 +1,8 @@
 const http = require('http');
 const chalk = require('chalk');
 
+const database = require('../../config/database');
+
 const serverService = () => {
 
     const checkEnvironment = environment => {
@@ -18,6 +20,19 @@ const serverService = () => {
 
     };
 
+    const startDatabaseConnection = () => {
+
+        database
+            .authenticate()
+            .then(() => {
+                console.log(chalk.green('Connection has been established successfully'));   
+            })
+            .catch(error => {
+                console.log(chalk.red(`Unable to connect to the database: ${error.message}`));
+            });
+
+    }
+
     const startServer = (app, config) => {
 
         try {
@@ -25,9 +40,11 @@ const serverService = () => {
 
             const server = http.Server(app);
 
-             server.listen(config.port, async () => {
+            server.listen(config.port, async () => {
                 console.log(chalk.green(`\nServer started on http://${config.host}:${config.port}`))
             });
+
+            startDatabaseConnection();
         } catch (error) {
             console.info(chalk.red(`\nFail to start server!\n${error}\n`));
         };

@@ -9,7 +9,8 @@ const config = {
         host: process.env.HOST || 'localhost',
         environment: process.env.NODE_ENV || 'development',
         publicRoutes,
-        privateRoutes
+        privateRoutes,
+        migration: false
 }
 
 module.exports = config;
