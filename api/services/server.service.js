@@ -45,6 +45,8 @@ const serverService = () => {
             });
 
             startDatabaseConnection();
+            const models = require('../models/');
+            console.log(models)
         } catch (error) {
             console.info(chalk.red(`\nFail to start server!\n${error}\n`));
         };
