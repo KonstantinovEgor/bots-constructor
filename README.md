@@ -1,11 +1,15 @@
 # Service for construction simple bots
 
 ## Table of content
-- [Info](#info)
-- [Migrations](#migrations)
+- [Server](#server)
+- [Client](#client)
 
-## Info
+## Server
+### Table of server's content
+- [Info](#server-info)
+- [Migrations](#server-migrations)
 
+### Server-info
 - Node version 18.7.0
 - NPM version 8.15.0
 - PostgreSQL version 12.x.x
@@ -13,9 +17,7 @@
 - Support data base migrations
 - Telegram bot API version 6.3
 
-
-## Migrations
-
+### Server-migrations
 1. Global installation package [db-migrate]
 ```sh
 $ npm install -g db-migrate
@@ -31,3 +33,5 @@ $ db-migrate create NAME_BRANCH --sql-file true --config ./config/config.json
 ```sh
 $ Set-ExecutionPolicy RemoteSigned -Scope Proces
 ```
+
+## Client

@@ -1,0 +1,19 @@
+{
+  "name": "bots-constructor-server",
+  "version": "1.0.0",
+  "author": "MiracleSw1n",
+  "license": "ISC",
+  "scripts": {
+    "start": "npm run dev",
+    "prod": "npm run produp && node ./api/api.js",
+    "produp": "db-migrate up --config ./config/config.json",
+    "proddown": "db-migrate down --config ./config/config.json",
+    "dev": "npm run devup && nodemon ./api/api.js",
+    "devup": "db-migrate up --config ./config/config.json",
+    "devdown": "db-migrate down --config ./config/config.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KonstantinovEgor/bots-constructor.git"
+  }
+}
