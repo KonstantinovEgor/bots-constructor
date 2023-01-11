@@ -13,17 +13,17 @@ class Server {
 
     connect() {
         database
-        .authenticate()
-        .then(() => {
-            console.log(
-                chalk.green('Database connection has been established successfully')
-            );   
-        })
-        .catch(error => {
-            console.log(
-                chalk.red(`Fail connecting to database:\n${error}`)
-            );
-        });
+            .authenticate()
+            .then(() => {
+                console.log(
+                    chalk.green('Database connection has been established successfully')
+                );   
+            })
+            .catch(error => {
+                console.log(
+                    chalk.red(`Fail connecting to database:\n${error}`)
+                );
+            });
     }
 
     start() {
