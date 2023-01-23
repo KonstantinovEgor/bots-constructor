@@ -4,15 +4,15 @@ const path = require('path');
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../config/database');
 
-const dirModels = path.join(__dirname, 'api', 'models'); 
+const basename = path.basename(__filename);
 
 const db = {};
 
 fs
-  .readdirSync(dirModels)
+  .readdirSync(__dirname)
   .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
   .forEach((file) => {
-    const model = require(path.join(dirModels, file))(DataTypes, sequelize);
+    const model = require(path.join(__dirname, file))(DataTypes, sequelize);
     db[model.name] = model;
   });
 

@@ -16,7 +16,8 @@ class Server {
             .authenticate()
             .then(() => {
                 console.log(
-                    chalk.green('Database connection has been established successfully')
+                    'Database connection:',
+                    chalk.green('established successfully')
                 );   
             })
             .catch(error => {
@@ -30,14 +31,25 @@ class Server {
         try {
             this.server.listen(this.port, () => {
                 console.log(
-                    chalk.green(`\nServer success started`)
+                    '\nServer:',
+                    chalk.green(`started`)
+                );
+                console.log(
+                    'Host:',
+                    chalk.green(this.host)
+                );
+                console.log(
+                    'Port:',
+                    chalk.green(this.port)
                 );
 
                 this.connect();
             });
         } catch (error) {
             console.log(
-                chalk.red(`Fail to start Server:\n${error}`)
+                'Server:',
+                chalk.red(`fail to start`),
+                `\n${error}`
             );
         }
     }

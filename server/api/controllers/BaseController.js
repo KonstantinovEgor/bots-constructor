@@ -1,3 +1,5 @@
+const models = require('../models/');
+
 class BaseController {
     async getAll() {
 
@@ -7,15 +9,18 @@ class BaseController {
 
     }
 
-    async delete() {
+    async del() {
 
     }
     
-    async create() {
-
+    async add(modelName, pool) {
+        const result = await models[modelName].create(pool);
+        return {
+            ...result
+        }
     }
 
-    async update() {
+    async upd() {
 
     }
 }
