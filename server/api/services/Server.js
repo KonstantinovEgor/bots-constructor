@@ -17,12 +17,12 @@ class Server {
             .then(() => {
                 console.log(
                     'Database connection:',
-                    chalk.green('established successfully')
+                    chalk.green('established successfully\n')
                 );   
             })
             .catch(error => {
                 console.log(
-                    chalk.red(`Fail connecting to database:\n${error}`)
+                    chalk.red(`Fail connecting to database:\n${error}\n`)
                 );
             });
     }
@@ -31,7 +31,11 @@ class Server {
         try {
             this.server.listen(this.port, () => {
                 console.log(
-                    '\nServer:',
+                    '\nAuthored by: ',
+                    chalk.green('ThendGroup | MiracleSw1n')
+                );
+                console.log(
+                    'Server:',
                     chalk.green(`started`)
                 );
                 console.log(

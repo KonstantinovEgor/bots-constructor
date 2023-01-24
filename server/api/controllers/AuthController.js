@@ -5,13 +5,13 @@ class AuthController extends BaseController {
         super();
     }
 
-    static registration(req, res, next) {
-        res.status(200).json('ok');
+    async registration(req, res, next) {
+        await super.add('BCUsers', req, res, next);
     }
 
-    static login(req, res, next) {
+    login(req, res, next) {
         res.status(200).json('ok');
     }
 }
 
-module.exports = AuthController;
+module.exports = new AuthController();
