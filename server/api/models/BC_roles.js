@@ -1,4 +1,4 @@
-module.exports = (DataTypes, sequelize, models) => {
+module.exports = (DataTypes, sequelize) => {
     const tableName = 'bc_roles';
     const BCRoles = sequelize.define('BCRoles', {
         id: {

@@ -18,7 +18,7 @@ class AuthController extends BaseController {
             return next(ApiError.badRequest(`Пользователь с логином ${pool.login} уже существует`));
         pool.password = await hashService.getHashString(pool.password);
         const user = await super.add('BCUsers', pool, req, res, next, false);
-        await super.add('BCRoles', { user_id: user.id }, req, res, next, false);
+        await super.add('BCRoles', { user_id: user.dataValues.id }, req, res, next, false);
 
         res.status(200).json({ message: 'Пользователь успешно создан' });
     }

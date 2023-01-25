@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/api/public', publicRoutes);
 app.use('/api/private', privateRoutes);
-app.use(errorHandler)
+app.use(errorHandler);
 
 const server = new Server(app);
 server.start();
