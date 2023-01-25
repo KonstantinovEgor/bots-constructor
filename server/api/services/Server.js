@@ -31,7 +31,7 @@ class Server {
         try {
             this.server.listen(this.port, () => {
                 console.log(
-                    '\nAuthored by: ',
+                    '\nAuthored by:',
                     chalk.green('ThendGroup | MiracleSw1n')
                 );
                 console.log(

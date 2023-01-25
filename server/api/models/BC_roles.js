@@ -1,4 +1,4 @@
-module.exports = (DataTypes, sequelize) => {
+module.exports = (DataTypes, sequelize, models) => {
     const tableName = 'bc_roles';
     const BCRoles = sequelize.define('BCRoles', {
         id: {
@@ -8,19 +8,22 @@ module.exports = (DataTypes, sequelize) => {
         },
         user_id: {
             type: DataTypes.STRING(36),
-            primaryKey: true,
+            allowNull: false
         },
         name: {
             type: DataTypes.STRING(24),
-            allowNull: false
+            allowNull: false,
+            defaultValue: 'Not verifed user'
         },
         description: {
             type: DataTypes.STRING(250),
-            allowNull: false
+            allowNull: false,
+            defaultValue: 'The user has not verifed their email'
         },
         permission_level: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            defaultValue: 1
         },
         createdAt: {
             type: DataTypes.DATE,
@@ -31,6 +34,7 @@ module.exports = (DataTypes, sequelize) => {
             defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
         }
     }, { tableName });
- 
+
+
     return BCRoles;
  }

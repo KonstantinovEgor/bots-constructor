@@ -1,4 +1,4 @@
-module.exports = (DataTypes, sequelize) => {
+module.exports = (DataTypes, sequelize, models) => {
    const tableName = 'bc_users';
    const BCUsers = sequelize.define('BCUsers', {
         id: {
@@ -11,7 +11,7 @@ module.exports = (DataTypes, sequelize) => {
             allowNull: false
         },
         password: {
-            type: DataTypes.STRING(24),
+            type: DataTypes.STRING(150),
             allowNull: false
         },
         createdAt: {

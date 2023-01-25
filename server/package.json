@@ -17,6 +17,7 @@
     "url": "git+https://github.com/KonstantinovEgor/bots-constructor.git"
   },
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "chalk": "^2.4.2",
     "cors": "^2.8.5",
     "db-migrate": "^0.11.13",

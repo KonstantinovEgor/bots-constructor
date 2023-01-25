@@ -1,4 +1,4 @@
-module.exports = (DataTypes, sequelize) => {
+module.exports = (DataTypes, sequelize, models) => {
     const tableName = 'bc_users_info';
     const BCUsersInfo = sequelize.define('BCUsersInfo', {
         id: {
@@ -27,6 +27,6 @@ module.exports = (DataTypes, sequelize) => {
             defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
         }
     }, { tableName });
- 
+
     return BCUsersInfo;
  }

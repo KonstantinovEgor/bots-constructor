@@ -6,14 +6,14 @@ const sequelize = require('../../config/database');
 
 const basename = path.basename(__filename);
 
-const db = {};
+const models = {};
 
 fs
   .readdirSync(__dirname)
   .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
   .forEach((file) => {
     const model = require(path.join(__dirname, file))(DataTypes, sequelize);
-    db[model.name] = model;
+    models[model.name] = model;
   });
 
-module.exports = db;
+module.exports = models;

@@ -2,67 +2,71 @@ const ApiError = require('../errors/ApiError');
 const models = require('../models/');
 
 class BaseController {
-    async getAll(modelName, req, res, next) {
+    async getAll(modelName, pool = {}, req, res, next, sendAnswer = true) {
         try {
             const result = await models[modelName].findAll();
 
-            res.status(200).json(result);
+            if (sendAnswer)
+                res.status(200).json(result);
+            else return result;
         } catch (error) {
+            console.log(error);
             next(ApiError.badRequest({
-                message: 'Ошибка получения записей',
-                ...error
+                message: 'Ошибка получения записей'
             }));
         }
     }
 
-    async getOne(modelName, req, res, next) {
+    async getOne(modelName, where = {}, req, res, next, sendAnswer = true) {
         try {
-            const pool = req.query;
-            const result = await models[modelName].findOne({ where: { pool } });
+            const result = await models[modelName].findOne({ where: where });
 
-            res.status(200).json(result.dataValues);
+            if (sendAnswer)
+                res.status(200).json(result.dataValues);
+            else return result;
         } catch (error) {
+            console.log(error)
             next(ApiError.badRequest({
-                message: 'Ошибка получения записи',
-                ...error
+                message: 'Ошибка получения записи'
             }));
         }
     }
 
-    async del(modelName, req, res, next) {
+    async del(modelName, pool = {}, req, res, next, sendAnswer = true) {
         try {
 
         } catch (error) {
+            console.log(error);
             next(ApiError.badRequest({
-                message: 'Ошибка удаления записи',
-                ...error
+                message: 'Ошибка удаления записи'
             }));
         }
     }
     
-    async add(modelName, req, res, next) {
+    async add(modelName, pool = {}, req, res, next, sendAnswer = true) {
         try {
-            const pool = req.body;
             const result = await models[modelName].create(pool);
 
-            res.status(200).json({
-                ...result?.dataValues
-            });
+            if (sendAnswer)
+                res.status(200).json({
+                    ...result.dataValues
+                });
+            else return result;
         } catch (error) {
+            console.log(error);
             next(ApiError.badRequest({
-                message: 'Ошибка добавления записи',
-                ...error
+                message: 'Ошибка добавления записи'
             }));
         }
     }
 
-    async upd(modelName, req, res, next) {
+    async upd(modelName, pool = {}, req, res, next, sendAnswer = true) {
         try {
 
         } catch (error) {
+            console.log(error);
             next(ApiError.badRequest({
-                message: 'Ошибка обновления записи',
-                ...error
+                message: 'Ошибка обновления записи'
             }));
         }
     }

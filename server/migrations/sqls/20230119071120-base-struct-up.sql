@@ -2,7 +2,7 @@
 CREATE TABLE IF NOT EXISTS "bc_users" (
     "id"                UUID    PRIMARY KEY     NOT NULL,
     "login"             VARCHAR(24)     NOT NULL,  
-    "password"          VARCHAR(24)     NOT NULL,
+    "password"          VARCHAR(150)     NOT NULL,
     "createdAt"         TIMESTAMP WITH TIME ZONE    DEFAULT CURRENT_TIMESTAMP,
     "updatedAt"         TIMESTAMP WITH TIME ZONE    DEFAULT CURRENT_TIMESTAMP
 );
@@ -17,9 +17,9 @@ COMMENT ON COLUMN "bc_users"."updatedAt" IS 'Время обновления з�
 CREATE TABLE IF NOT EXISTS "bc_roles" (
     "id"                UUID    PRIMARY KEY     NOT NULL,
     "user_id"           UUID    REFERENCES "bc_users"("id")     NOT NULL,
-    "name"              VARCHAR(24)     NOT NULL,
-    "description"       VARCHAR(250)    NOT NULL,
-    "permission_level"  INTEGER     NOT NULL,
+    "name"              VARCHAR(24)     NOT NULL    DEFAULT 'Not verifed user',
+    "description"       VARCHAR(250)    NOT NULL    DEFAULT 'The user has not verifed their email',
+    "permission_level"  INTEGER     NOT NULL    DEFAULT 1,
     "createdAt"         TIMESTAMP WITH TIME ZONE    DEFAULT CURRENT_TIMESTAMP,
     "updatedAt"         TIMESTAMP WITH TIME ZONE    DEFAULT CURRENT_TIMESTAMP
 );
