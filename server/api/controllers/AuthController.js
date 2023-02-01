@@ -46,18 +46,18 @@ class AuthController extends BaseController {
     }
 
     async auth(req, res, next) {
-        const token = req.header.Authorization?.split[1];
+        const token = req.headers.authorization?.split(' ')[1];
         if (!token)
-            next(ApiError.badRequest('Не авторизован'));
+            return next(ApiError.badRequest('Не авторизован'));
         const newToken = tokenService.refreshAccessToken(token);
         if (!newToken)
-            next(ApiError.badRequest('Токен не валидный'));
+            return next(ApiError.badRequest('Токен не валидный'));
 
-            res.setHeader('Authorization', `Bearer ${newToken}`);
-            res.status(200).json({
-                token_type: 'Bearer',
-                token: newToken
-            });
+        res.setHeader('Authorization', `Bearer ${newToken}`);
+        res.status(200).json({
+            token_type: 'Bearer',
+            token: newToken
+        });
     }
 }
 

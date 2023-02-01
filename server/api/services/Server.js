@@ -9,19 +9,26 @@ class Server {
         this.server = http.createServer(expressApp);
         this.port = config.port;
         this.host = config.host;
+
+        this.log = text => {
+            const dateNow = new Date();
+            console.log(`[` +
+                `${dateNow.getHours()}:${dateNow.getMinutes()}:${dateNow.getSeconds()}`
+            + `]`, text);
+        } 
     }
 
     connect() {
         database
             .authenticate()
             .then(() => {
-                console.log(
-                    'Database connection:',
+                this.log(
+                    'Database connection: ' +
                     chalk.green('established successfully\n')
                 );   
             })
             .catch(error => {
-                console.log(
+                this.log(
                     chalk.red(`Fail connecting to database:\n${error}\n`)
                 );
             });
@@ -30,28 +37,29 @@ class Server {
     start() {
         try {
             this.server.listen(this.port, () => {
-                console.log(
-                    '\nAuthored by:',
+                console.log();
+                this.log(
+                    'Authored by: ' +
                     chalk.green('ThendGroup | MiracleSw1n')
                 );
-                console.log(
-                    'Server:',
+                this.log(
+                    'Server: ' +
                     chalk.green(`started`)
                 );
-                console.log(
-                    'Host:',
+                this.log(
+                    'Host: ' +
                     chalk.green(this.host)
                 );
-                console.log(
-                    'Port:',
+                this.log(
+                    'Port: ' +
                     chalk.green(this.port)
                 );
 
                 this.connect();
             });
         } catch (error) {
-            console.log(
-                'Server:',
+            this.log(
+                'Server +',
                 chalk.red(`fail to start`),
                 `\n${error}`
             );
