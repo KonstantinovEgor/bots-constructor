@@ -1,11 +1,12 @@
 const TgBot = require('node-telegram-bot-api');
 
 class TelegramBot {
-    constructor(token, messages = {}) {
+    constructor(token, config = {}) {
         this.bot = this.create(token)
             .then(bot => {
                 this.bot = bot;
-                this.startSendingMessages(messages);
+                this.setCommands(config.commands);
+                this.startSendingMessages(config.messages);
             })
             .catch(error => console.log(error));
 
@@ -39,6 +40,10 @@ class TelegramBot {
                 'Неизвестная команда, для помощи воспользуйтесь /help'
             );
         })
+    }
+
+    setCommands(commands = []) {
+        return this.bot.setMyCommands(commands);
     }
 }
 

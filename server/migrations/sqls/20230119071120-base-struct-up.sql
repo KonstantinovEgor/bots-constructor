@@ -48,3 +48,20 @@ COMMENT ON COLUMN "bc_users_info"."phone_number" IS 'Номер телефона
 COMMENT ON COLUMN "bc_users_info"."email" IS 'Почта пользователя';
 COMMENT ON COLUMN "bc_users_info"."createdAt" IS 'Время создания записи';
 COMMENT ON COLUMN "bc_users_info"."updatedAt" IS 'Время обновления записи';
+
+-- Таблица ботов -- 
+CREATE TABLE IF NOT EXISTS "bc_telegram_bots" (
+    "id"                UUID    PRIMARY KEY     NOT NULL,
+    "user_id"           UUID    REFERENCES "bc_users"("id")     NOT NULL,
+    "token"             VARCHAR(150)    NOT NULL,
+    "config"            JSON   DEFAULT '{}',
+    "createdAt"         TIMESTAMP WITH TIME ZONE    DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt"         TIMESTAMP WITH TIME ZONE    DEFAULT CURRENT_TIMESTAMP
+);
+COMMENT ON TABLE "bc_telegram_bots" IS 'Таблица телеграм ботов';
+COMMENT ON COLUMN "bc_telegram_bots"."id" IS 'Уникальный идентификатор бота';
+COMMENT ON COLUMN "bc_telegram_bots"."user_id" IS 'Уникальный идентификатор пользователя, создателю бота';
+COMMENT ON COLUMN "bc_telegram_bots"."token" IS 'Уникальный токен бота';
+COMMENT ON COLUMN "bc_telegram_bots"."config" IS 'Конфигурация бота';
+COMMENT ON COLUMN "bc_telegram_bots"."createdAt" IS 'Время создания записи';
+COMMENT ON COLUMN "bc_telegram_bots"."updatedAt" IS 'Время обновления записи';
