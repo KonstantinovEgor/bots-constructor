@@ -65,3 +65,21 @@ COMMENT ON COLUMN "bc_telegram_bots"."token" IS 'Уникальный токен
 COMMENT ON COLUMN "bc_telegram_bots"."config" IS 'Конфигурация бота';
 COMMENT ON COLUMN "bc_telegram_bots"."createdAt" IS 'Время создания записи';
 COMMENT ON COLUMN "bc_telegram_bots"."updatedAt" IS 'Время обновления записи';
+
+-- Типы сообщений-ответов ботов --
+CREATE TABLE IF NOT EXISTS "bc_bot_message_types" (
+    "id"                UUID    PRIMARY KEY     NOT NULL,
+    "message_type"      VARCHAR(50)    NOT NULL     UNIQUE,
+    "createdAt"         TIMESTAMP WITH TIME ZONE    DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt"         TIMESTAMP WITH TIME ZONE    DEFAULT CURRENT_TIMESTAMP
+);
+COMMENT ON TABLE "bc_bot_message_types" IS 'Таблица типо сообщений-ответов ботов';
+COMMENT ON COLUMN "bc_bot_message_types"."message_type" IS 'Уникаьлный идентификатор типа ответа-сообщения бота';
+COMMENT ON COLUMN "bc_bot_message_types"."id" IS 'Тип сообщения-ответа';
+COMMENT ON COLUMN "bc_bot_message_types"."createdAt" IS 'Время создания записи';
+COMMENT ON COLUMN "bc_bot_message_types"."updatedAt" IS 'Время обновления записи';
+
+INSERT INTO "bc_bot_message_types" ("id", "message_type") VALUES
+    ('1114e88b-dce2-401a-b387-613e764b4a79', 'message');
+INSERT INTO "bc_bot_message_types" ("id", "message_type") VALUES
+    ('2224e88b-dce2-401a-b387-613e764b4a79', 'options');

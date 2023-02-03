@@ -17,29 +17,31 @@ class TelegramBot {
         return new TgBot(token, config);
     }
 
-    startSendingMessages(messages = {}) {
+    startSendingMessages(messages = []) {
         this.bot.on('message', message => {
             const chatId = message.chat.id;
             const msg = message.text;
 
-            if (msg === '/start')
-                return this.bot.sendMessage(chatId, 
-                    'Приветствую тебя, друг! Для получения более подробной информации используй /help.\n' +
-                    'Этот bot был создан с помощью Thend-Bots-Constructor'
-                );
-            if (msg === '/help')
-                return this.bot.sendMessage(chatId,
-                    `Доступные команды:\n` +
-                    `"${Object.keys(messages).join('"  "')}".`
-                ); 
+            for (const mObj of messages) {
+                if (msg === mObj.user_message) {
+                    for (const answer of mObj.answer) {
+                        if (answer.message_type === 'message')
+                            this.bot.sendMessage(chatId, answer.value);
+                        if (answer.message_type === 'options')
+                            this.bot.sendMessage(
+                                chatId, answer.value, this.getOptions(answer.options_config)
+                            );
+                    }
+                    return;
+                }
+            }
+            this.bot.sendMessage(chatId, 'Неизвестная команда'); 
+                
+        });
+    }
 
-            if (messages[msg])
-                return this.bot.sendMessage(chatId, messages[msg]);
-
-            return this.bot.sendMessage(chatId, 
-                'Неизвестная команда, для помощи воспользуйтесь /help'
-            );
-        })
+    getOptions(config) {
+        return JSON.stringify(config);
     }
 
     setCommands(commands = []) {
