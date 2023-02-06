@@ -1,4 +1,4 @@
-# Service for construction simple bots
+# Client-server application for construction simple bots
 
 ## Table of content
 - [Server](#server)
