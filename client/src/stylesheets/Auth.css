@@ -20,3 +20,8 @@
 .decor-none {
     text-decoration: none;
 }
+
+.error-message {
+    text-align: center;
+    margin-top: 20px;
+}

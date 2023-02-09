@@ -1,28 +1,46 @@
-import React, { useState } from "react";
+import React, {useCallback, useContext, useState} from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Button from  "react-bootstrap/Button";
+import {Alert} from "react-bootstrap";
 
 import "../stylesheets/Auth.css";
 import { REGISTRATION_ROUTE, LOGIN_ROUTE } from "../utils/consts";
-import { login, registration } from "../http/authApi";
+import { logIn, registration } from "../http/authApi";
 
-const Auth = () => {
-    const isLoginPage = (useLocation().pathname === LOGIN_ROUTE) ?
-        true : false;
+import { Context } from "../index";
 
-    const { login, setLogin } = useState("");
-    const { password, setPassword } = useState("");
+const Auth = observer(() => {
+    const { user } = useContext(Context);
+    const isLoginPage = useLocation().pathname === LOGIN_ROUTE;
+
+    const [ login, setLogin ] = useState("");
+    const [ password, setPassword ] = useState("");
+
+    let ErrorMessage = '';
+    const [, updateError] = useState();
 
     const clickOnBtn = async () => {
-        if (isLoginPage)
-            return await login(login, password);
-        else
-            return await registration(login, password);
+        try {
+            if (isLoginPage)
+                user.setUser(await logIn(login, password));
+            else
+                user.setUser(await registration(login, password));
+            user.setIsAuth(true)
+        } catch (error) {
+            ErrorMessage = (
+                <Alert key="danger" variant="danger">
+                    {error.response.data.message}
+                </Alert>
+            )
+            useCallback(() => updateError({}), []);
+        }
+
     }
 
     return (
@@ -44,6 +62,7 @@ const Auth = () => {
                         placeholder="Введите ваш пароль"
                         value={password}
                         onChange={ e => setPassword(e.target.value) }
+                        type="password"
                     />
                     <Row className="d-flex justify-content-between mt-3 pl-3 pr-3">
                         { isLoginPage ? (
@@ -61,22 +80,24 @@ const Auth = () => {
                         ) }
                         { isLoginPage ? (
                             <div className="button-login">
-                                <Button click={clickOnBtn()}  variant={"outline-success"}>
+                                <Button onClick={clickOnBtn}  variant={"outline-success"}>
                                     Войти
                                 </Button>
                             </div>
                         ) : (
                             <div className="button-reg">
-                                <Button click={clickOnBtn()} variant={"outline-success"}>
+                                <Button onClick={clickOnBtn} variant={"outline-success"}>
                                     Регистрация
                                 </Button>
                             </div>
                         ) }
                     </Row>
+
+                    {ErrorMessage}
                 </Form>
             </Card>
         </Container>
     );
-};
+});
 
 export default Auth;

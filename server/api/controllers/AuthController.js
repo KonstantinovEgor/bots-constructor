@@ -21,6 +21,10 @@ class AuthController extends BaseController {
         const user = await super.add('BCUsers', pool, req, res, next, false);
         await super.add('BCRoles', { user_id: user.dataValues.id }, req, res, next, false);
 
+        const token = tokenService.generate({
+            id: user.dataValues.id,
+            login: user.dataValues.login
+        });
         res.status(200).json({ message: 'Пользователь успешно создан' });
     }
 
