@@ -27,7 +27,6 @@ class TokenService {
             return;
         return this.generate({ id: payload.id, logn: payload.login });
     }
-
 }
 
 module.exports = new TokenService();

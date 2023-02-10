@@ -1,7 +1,7 @@
 const TgBot = require('node-telegram-bot-api');
 
 class TelegramBot {
-    constructor(token, config = {}) {
+    constructor(token, config = {commands, messages}) {
         this.bot = this.create(token)
             .then(bot => {
                 this.bot = bot;
@@ -9,8 +9,6 @@ class TelegramBot {
                 this.startSendingMessages(config.messages);
             })
             .catch(error => console.log(error));
-
-        
     }
 
     async create(token, config = { polling: true }) {
@@ -26,16 +24,16 @@ class TelegramBot {
                 if (msg === mObj.user_message) {
                     for (const answer of mObj.answer) {
                         if (answer.message_type === 'message')
-                            this.bot.sendMessage(chatId, answer.value);
+                            this.bot.sendMessage(chatId, answer.value).then();
                         if (answer.message_type === 'options')
                             this.bot.sendMessage(
                                 chatId, answer.value, this.getOptions(answer.options_config)
-                            );
+                            ).then();
                     }
                     return;
                 }
             }
-            this.bot.sendMessage(chatId, 'Неизвестная команда'); 
+            this.bot.sendMessage(chatId, 'Неизвестная команда').then();
                 
         });
     }
