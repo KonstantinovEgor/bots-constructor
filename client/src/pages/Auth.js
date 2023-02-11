@@ -1,5 +1,5 @@
-import React, {useCallback, useContext, useState} from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import React, {useCallback, useContext, useEffect, useState} from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 
 import Container from "react-bootstrap/Container";
@@ -10,37 +10,50 @@ import Button from  "react-bootstrap/Button";
 import {Alert} from "react-bootstrap";
 
 import "../stylesheets/Auth.css";
-import { REGISTRATION_ROUTE, LOGIN_ROUTE } from "../utils/consts";
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, HOME_ROUTE } from "../utils/consts";
 import { logIn, registration } from "../http/authApi";
 
 import { Context } from "../index";
 
 const Auth = observer(() => {
     const { user } = useContext(Context);
+    const navigate = new useNavigate();
     const isLoginPage = useLocation().pathname === LOGIN_ROUTE;
 
     const [ login, setLogin ] = useState("");
     const [ password, setPassword ] = useState("");
 
-    let ErrorMessage = '';
-    const [, updateError] = useState();
+    const [ErrorMessage, UpdateErrorMessage] = useState("");
 
     const clickOnBtn = async () => {
+        let data;
         try {
             if (isLoginPage)
-                user.setUser(await logIn(login, password));
+                data = await logIn(login, password);
             else
-                user.setUser(await registration(login, password));
-            user.setIsAuth(true)
+                data = await registration(login, password);
+            user.setUser(data);
+            user.setIsAuth(true);
+            navigate(HOME_ROUTE);
         } catch (error) {
-            ErrorMessage = (
-                <Alert key="danger" variant="danger">
-                    {error.response.data.message}
-                </Alert>
-            )
-            useCallback(() => updateError({}), []);
+            ThrowErrorMessage(error)
         }
+    }
 
+    const [showElement, setShowElement] = React.useState(true)
+    useEffect(()=> {
+        setTimeout(function() {
+            setShowElement(false)
+        }, 5000);
+    });
+
+    const ThrowErrorMessage = (error) => {
+        setShowElement(true)
+        UpdateErrorMessage(
+            <Alert key="danger" variant="danger" className="error-message">
+                {error.response.data.message}
+            </Alert>
+        );
     }
 
     return (
@@ -92,9 +105,8 @@ const Auth = observer(() => {
                             </div>
                         ) }
                     </Row>
-
-                    {ErrorMessage}
                 </Form>
+                {showElement? <div>{ErrorMessage}</div>  : ''}
             </Card>
         </Container>
     );

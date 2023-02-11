@@ -1,3 +1,5 @@
+const localStorage = require('localStorage');
+
 const BaseController = require('./BaseController');
 
 const helperService = require('../services/HelperService');
@@ -25,7 +27,10 @@ class AuthController extends BaseController {
             id: user.dataValues.id,
             login: user.dataValues.login
         });
-        res.status(200).json({ message: 'Пользователь успешно создан' });
+        res.status(200).json({
+            token_type: 'Bearer',
+            token
+        });
     }
 
     async login(req, res, next) {

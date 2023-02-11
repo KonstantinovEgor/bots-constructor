@@ -13,3 +13,8 @@
 .reg-button {
     margin-left: 10px;
 }
+
+.link_to {
+    text-decoration: none;
+    color: white;
+}
