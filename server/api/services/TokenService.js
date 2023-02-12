@@ -23,9 +23,10 @@ class TokenService {
 
     refreshAccessToken(token) {
         const payload = this.validateAccessToken(token);
+        console.log(payload)
         if (!payload)
             return;
-        return this.generate({ id: payload.id, logn: payload.login });
+        return this.generate({ id: payload.id, login: payload.login });
     }
 }
 

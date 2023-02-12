@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 
 import { Context } from "./index";
 import { auth } from "./http/authApi";
+import {Spinner} from "react-bootstrap";
 
 const App = observer(() => {
     const { user } = useContext(Context);
@@ -14,11 +15,15 @@ const App = observer(() => {
     useEffect(() => {
         auth()
             .then(data => {
-                user.setUser(true);
+                user.setUser(data);
                 user.setIsAuth(true);
             })
             .finally(() => setLoading(false));
-    }, [])
+    }, []);
+    if (loading)
+        return (
+            <Spinner animation={"grow"}/>
+        );
 
     return (
         <BrowserRouter>

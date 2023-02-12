@@ -17,4 +17,8 @@
 .link_to {
     text-decoration: none;
     color: white;
+    transition: all .3s linear;
+}
+.link_to:hover {
+    color: black;
 }

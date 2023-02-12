@@ -2,9 +2,9 @@ const ApiError = require('../errors/ApiError');
 const models = require('../models/');
 
 class BaseController {
-    async getAll(modelName, pool = {}, req, res, next, sendAnswer = true) {
+    async getAll(modelName, where = {}, req, res, next, sendAnswer = true) {
         try {
-            const result = await models[modelName].findAll();
+            const result = await models[modelName].findAll({ where: where });
 
             if (sendAnswer)
                 res.status(200).json(result);

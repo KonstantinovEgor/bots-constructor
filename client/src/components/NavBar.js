@@ -9,7 +9,7 @@ import { observer } from "mobx-react-lite";
 
 import { Context } from "../index";
 import {
-    HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE
+    HOME_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, REGISTRATION_ROUTE, MY_BOTS_ROUTE
 } from "../utils/consts";
 
 import "../stylesheets/NavBar.css";
@@ -33,9 +33,15 @@ const NavBar = observer(() => {
                     </Nav>
                 :
                 <Nav className="ml-auto" style={{color: 'white'}}>
-                    <Button variant={"outline-light"}>Создание бота</Button>
-                    <Button className="reg-button" variant={"outline-light"}>Мои боты</Button>
-                    <Button className="reg-button" variant={"outline-light"}>Профиль</Button>
+                    <Button variant={"outline-light"}>
+                        Создание бота
+                    </Button>
+                    <Button className="reg-button" variant={"outline-light"}>
+                        <NavLink className="link_to" to={MY_BOTS_ROUTE}>Мои боты</NavLink>
+                    </Button>
+                    <Button className="reg-button" variant={"outline-light"}>
+                        <NavLink className="link_to" to={PROFILE_ROUTE}>Профиль</NavLink>
+                    </Button>
                 </Nav>
                 }
             </Container>
