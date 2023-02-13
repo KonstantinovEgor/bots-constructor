@@ -1,3 +1,27 @@
 .link_to_create {
     text-decoration: none;
 }
+
+.text-bold {
+    font-weight: bold;
+}
+
+.batn {
+    width: 50%;
+}
+
+.batn_two {
+    margin-left: 4%;
+}
+
+.form-for-batn {
+    margin: 0px auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.card-main {
+    width: 600px !important;
+    max-height: 500px;
+    overflow-y: scroll;
+}
