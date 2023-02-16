@@ -3,6 +3,7 @@ import Auth from "./pages/Auth";
 import Home from "./pages/Home";
 import Profile from  "./pages/Profile";
 import MyBots from "./pages/MyBots";
+import BotCreating from "./pages/BotCreating";
 
 import {
     ADMIN_ROUTE,
@@ -11,6 +12,7 @@ import {
     HOME_ROUTE,
     PROFILE_ROUTE,
     MY_BOTS_ROUTE,
+    BOT_CREATING
 } from "./utils/consts";
 
 export const authRoutes = [
@@ -25,6 +27,10 @@ export const authRoutes = [
     {
         path: MY_BOTS_ROUTE,
         Element: <MyBots/>
+    },
+    {
+        path: BOT_CREATING,
+        Element: <BotCreating/>
     }
 ];
 

@@ -9,7 +9,12 @@ import { observer } from "mobx-react-lite";
 
 import { Context } from "../index";
 import {
-    HOME_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, REGISTRATION_ROUTE, MY_BOTS_ROUTE
+    HOME_ROUTE, 
+    LOGIN_ROUTE, 
+    PROFILE_ROUTE, 
+    REGISTRATION_ROUTE, 
+    MY_BOTS_ROUTE, 
+    BOT_CREATING
 } from "../utils/consts";
 
 import "../stylesheets/NavBar.css";
@@ -24,7 +29,7 @@ const NavBar = observer(() => {
                 <NavLink className="logo" to={HOME_ROUTE}>Thend Group - Bots Constructor</NavLink>
                 {!user.isAuth ?
                     <Nav className="ml-auto" style={{color: 'white'}}>
-                        <Button variant={"outline-light"} variant={"outline-light"}>
+                        <Button variant={"outline-light"}>
                             <NavLink className="link_to" to={LOGIN_ROUTE}>Авторизация</NavLink>
                         </Button>
                         <Button className="reg-button" variant={"outline-light"}>
@@ -34,7 +39,7 @@ const NavBar = observer(() => {
                 :
                 <Nav className="ml-auto" style={{color: 'white'}}>
                     <Button variant={"outline-light"}>
-                        Создание бота
+                        <NavLink className="link_to" to={BOT_CREATING}>Создание бота</NavLink>
                     </Button>
                     <Button className="reg-button" variant={"outline-light"}>
                         <NavLink className="link_to" to={MY_BOTS_ROUTE}>Мои боты</NavLink>
