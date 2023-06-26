@@ -6,8 +6,9 @@ import Form from 'react-bootstrap/Form';
 
 import { Context } from "../index";
 import {getAllMyTelegramBots} from "../http/userApi";
+import {initializeBot} from "../http/myBotsApi";
 import Button from "react-bootstrap/Button";
-import {HOME_ROUTE} from "../utils/consts";
+import {BOT_CREATING} from "../utils/consts";
 import {NavLink} from "react-router-dom";
 
 import '../stylesheets/MyBots.css';
@@ -18,6 +19,10 @@ const Admin = observer(() => {
 
     const [Bots, ReloadMyBots] = useState('');
 
+    const initializeMyBot = async (bot_id) => {
+        await initializeBot(bot_id);
+    }
+
     const getMyBots = async () => {
         const bots = await getAllMyTelegramBots(user_id);
         if (bots.length === 0)
@@ -27,7 +32,7 @@ const Admin = observer(() => {
                         У вас еще нет ботов
                     </h3>
                     <h4 className='mt-3'>
-                        Создать нового можно <NavLink className="link_to_create" to={HOME_ROUTE}>тут</NavLink>
+                        Создать нового можно <NavLink className="link_to_create" to={BOT_CREATING}>тут</NavLink>
                     </h4>
                 </div>
             )
@@ -52,7 +57,7 @@ const Admin = observer(() => {
                                 <Button className="batn" variant={"outline-success"}>
                                     Обновить
                                 </Button>
-                                <Button className="batn" variant={"outline-success"}>
+                                <Button className="batn" variant={"outline-success"} onClick={() => initializeMyBot(el.id)}>
                                     Запустить
                                 </Button>
                             </Form.Group>

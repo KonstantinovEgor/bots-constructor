@@ -41,11 +41,11 @@ const Auth = observer(() => {
     }
 
     const [showElement, setShowElement] = React.useState(true)
-    useEffect(()=> {
-        setTimeout(function() {
-            setShowElement(false)
-        }, 5000);
-    });
+    // useEffect(()=> {
+    //     setTimeout(function() {
+    //         setShowElement(false)
+    //     }, 5000);
+    // });
 
     const ThrowErrorMessage = (error) => {
         setShowElement(true)

@@ -17,15 +17,19 @@ class TelegramController extends BaseController {
     }
 
     async add(req, res, next) {
-        const pool = req.body;
+        try {
+            const pool = req.body;
 
-        helperService.itContains(pool, ['token', 'config'], next); 
-        const candidateBot = await super.getOne('BCTelegramBots', { token: pool.token }, req, res, next, false);
-        if (candidateBot)
-            return next(ApiError.badRequest('Данный токен уже используется'));
-        const bot = await super.add('BCTelegramBots', pool, req, res, next, false);
-        
-        res.status(200).json({ id: bot?.id });
+            helperService.itContains(pool, ['token', 'config'], next); 
+            const candidateBot = await super.getOne('BCTelegramBots', { token: pool.token }, req, res, next, false);
+            if (candidateBot)
+                return next(ApiError.badRequest('Данный токен уже используется'));
+            const bot = await super.add('BCTelegramBots', pool, req, res, next, false);
+            
+            res.status(200).json({ id: bot?.id });
+        } catch (error) {
+
+        }
     }
 
     async initialize(req, res, next) {
